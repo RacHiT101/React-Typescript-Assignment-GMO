@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -13,9 +11,7 @@ interface User {
 }
 
 const First = (props: Props) => {
-
   const navigate = useNavigate();
-
 
   const [user, setUser] = useState<User>({
     name: "",
@@ -35,42 +31,64 @@ const First = (props: Props) => {
     navigate("/second");
     console.log(user);
   };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (user.name === "" || user.phone === "" || user.email === "") {
+      navigate("/");
+      alert("Please enter all information ");
+    } else {
+      navigate("/second");
+    }
+  };
   return (
     <div className="flex items-center h-screen">
-      <div className="w-1/4 mx-auto border-gray-400 bg-gray-200 rounded-xl ">
-        <div className="text-center text-2xl ">Form</div>
+      <div className="w-1/4 mx-auto border-gray-400 p-5 shadow-md shadow-gray-600 bg-gray-300 rounded-xl">
+        <div className="text-center text-2xl">Form</div>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            name="name"
-            value={user.name}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="dense"
-          />
-          <TextField
-            label="Phone Number"
-            name="phone"
-            value={user.phone}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="dense"
-          />
-          <TextField
-            label="Email"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="dense"
-          />
+          <div className="">
+            <TextField
+              label="Name"
+              name="name"
+              value={user.name}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="dense"
+            />
+          </div>
+          <div className="my-4">
+            <TextField
+              label="Phone Number"
+              name="phone"
+              value={user.phone}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="dense"
+            />
+          </div>
+          <div className="my-4">
+            <TextField
+              label="Email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="dense"
+            />
+          </div>
           <div className="py-5">
             <Button type="submit" variant="contained" color="primary">
               Submit
             </Button>
+            <Link to={"/second"}>
+              {" "}
+              <Button onClick={handleClick} type="submit" variant="contained" color="primary">
+                Next Page
+              </Button>
+            </Link>
           </div>
         </form>
       </div>

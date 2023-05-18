@@ -13,12 +13,18 @@ interface Props {
 const DepartmentList: React.FC<Props> = ({ departments }) => {
   const [expandedDepartments, setExpandedDepartments] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
-  const [selectedSubDepartments, setSelectedSubDepartments] = useState<string[]>([]);
+  const [selectedSubDepartments, setSelectedSubDepartments] = useState<
+    string[]
+  >([]);
 
   const handleToggleDepartment = (department: string) => {
     if (expandedDepartments.includes(department)) {
-      setExpandedDepartments((prevState) => prevState.filter((dep) => dep !== department));
-      setSelectedDepartments((prevState) => prevState.filter((dep) => dep !== department));
+      setExpandedDepartments((prevState) =>
+        prevState.filter((dep) => dep !== department)
+      );
+      setSelectedDepartments((prevState) =>
+        prevState.filter((dep) => dep !== department)
+      );
       setSelectedSubDepartments((prevState) =>
         prevState.filter((subDep) => !subDep.startsWith(`${department}_`))
       );
@@ -27,25 +33,43 @@ const DepartmentList: React.FC<Props> = ({ departments }) => {
       setSelectedDepartments((prevState) => [...prevState, department]);
       setSelectedSubDepartments((prevState) => [
         ...prevState,
-        ...departments
+        ...(departments
           .find((dept) => dept.department === department)
-          ?.sub_departments.map((subDep) => `${department}_${subDep}`) as string[],
+          ?.sub_departments.map(
+            (subDep) => `${department}_${subDep}`
+          ) as string[]),
       ]);
     }
   };
 
-  const handleToggleSubDepartment = (subDepartment: string, parentDepartment: string) => {
+  const handleToggleSubDepartment = (
+    subDepartment: string,
+    parentDepartment: string
+  ) => {
     if (selectedSubDepartments.includes(subDepartment)) {
-      setSelectedSubDepartments((prevState) => prevState.filter((subDep) => subDep !== subDepartment));
-      if (!selectedSubDepartments.some((subDep) => subDep.startsWith(parentDepartment))) {
-        setSelectedDepartments((prevState) => prevState.filter((dep) => dep !== parentDepartment));
+      setSelectedSubDepartments((prevState) =>
+        prevState.filter((subDep) => subDep !== subDepartment)
+      );
+      if (
+        !selectedSubDepartments.some((subDep) =>
+          subDep.startsWith(parentDepartment)
+        )
+      ) {
+        setSelectedDepartments((prevState) =>
+          prevState.filter((dep) => dep !== parentDepartment)
+        );
       }
     } else {
       setSelectedSubDepartments((prevState) => [...prevState, subDepartment]);
       if (
-        departments.find((dept) => dept.department === parentDepartment)?.sub_departments.every(
-          (subDep) => selectedSubDepartments.includes(`${parentDepartment}_${subDep}`) || subDep === subDepartment
-        )
+        departments
+          .find((dept) => dept.department === parentDepartment)
+          ?.sub_departments.every(
+            (subDep) =>
+              selectedSubDepartments.includes(
+                `${parentDepartment}_${subDep}`
+              ) || subDep === subDepartment
+          )
       ) {
         setSelectedDepartments((prevState) => [...prevState, parentDepartment]);
       }
@@ -55,32 +79,39 @@ const DepartmentList: React.FC<Props> = ({ departments }) => {
   return (
     <div>
       <ol>
-      {departments.map((dept,index) => (
-        <li key={dept.department}>
-          <h3
-            onClick={() => handleToggleDepartment(dept.department)}
-            className={`cursor-pointer ${
-              expandedDepartments.includes(dept.department) ? "expanded" : ""
-            } ${selectedDepartments.includes(dept.department) ? "selected" : ""}`}
-          >
-            <Checkbox/>
-            {index + 1}. {dept.department}
-          </h3>
-          {expandedDepartments.includes(dept.department) &&
-            dept.sub_departments.map((subDept) => {
-              const subDepartment = `${dept.department}_${subDept}`;
-              return (
-                <div key={subDept} className="mx-8">
-                  <Checkbox
-                    checked={selectedSubDepartments.includes(subDepartment)}
-                    onChange={() => handleToggleSubDepartment(subDepartment, dept.department)}
-                  />
-                  <label>{subDept}</label>
-                </div>
-              );
-            })}
-        </li>
-      ))}
+        {departments.map((dept, index) => (
+          <li key={dept.department}>
+            <h3
+              onClick={() => handleToggleDepartment(dept.department)}
+              className={`cursor-pointer ${
+                expandedDepartments.includes(dept.department) ? "expanded" : ""
+              } ${
+                selectedDepartments.includes(dept.department) ? "selected" : ""
+              }`}
+            >
+              <Checkbox />
+              {index + 1}. {dept.department}
+            </h3>
+            {expandedDepartments.includes(dept.department) &&
+              dept.sub_departments.map((subDept) => {
+                const subDepartment = `${dept.department}_${subDept}`;
+                return (
+                  <div key={subDept} className="mx-8">
+                    <Checkbox
+                      checked={selectedSubDepartments.includes(subDepartment)}
+                      onChange={() =>
+                        handleToggleSubDepartment(
+                          subDepartment,
+                          dept.department
+                        )
+                      }
+                    />
+                    <label>{subDept}</label>
+                  </div>
+                );
+              })}
+          </li>
+        ))}
       </ol>
     </div>
   );
