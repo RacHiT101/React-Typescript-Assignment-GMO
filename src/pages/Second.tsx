@@ -6,15 +6,33 @@ type Props = {};
 
 const data = [
     {
-      department: "customer_service",
-      sub_departments: ["support", "customer_success"],
+      department: "Customer_service",
+      sub_departments: ["Support", "Customer_success"],
     },
     {
-      department: "design",
+      department: "Design",
       sub_departments: [
-        "graphic_design",
-        "product_design",
-        "web_design",
+        "Graphic_design",
+        "Product_design",
+        "Web_design",
+      ],
+    },
+    {
+      department: "Agriculture and Fishery",
+      sub_departments: [
+        "Agriculture",
+        "Crops",
+        "Farming Animals & livestock",
+        "Fishery",
+      ],
+    },
+    {
+      department: "Business", 
+      sub_departments: [
+        "Accounting",
+        "Auction",
+        "Career Management",
+        "Commercial Principal"
       ],
     },
   ]
