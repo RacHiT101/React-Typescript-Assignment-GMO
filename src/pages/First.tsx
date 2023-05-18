@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 
-type Props = {};
-
 interface User {
   name: string;
   phone: string;
   email: string;
 }
 
-const First = (props: Props) => {
+const First = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<User>({
@@ -46,7 +44,7 @@ const First = (props: Props) => {
       <div className="w-1/4 mx-auto border-gray-400 p-5 shadow-md shadow-gray-600 bg-gray-300 rounded-xl">
         <div className="text-center text-2xl">Form</div>
         <form onSubmit={handleSubmit}>
-          <div className="">
+          <div className="my-4">
             <TextField
               label="Name"
               name="name"

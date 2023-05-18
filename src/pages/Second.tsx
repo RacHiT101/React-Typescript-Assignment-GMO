@@ -1,8 +1,6 @@
-import React from "react";
 import Grid from "../components/Grid";
 import DepartmentList from "../components/Departments";
 
-type Props = {};
 
 const data = [
   {
@@ -33,10 +31,10 @@ const data = [
   },
 ];
 
-const second = (props: Props) => {
+const second = () => {
   return (
-    <div className="">
-      <div>
+    <div className="flex flex-col items-center justify-center ">
+      <div className="w-3/5 my-10">
         <Grid />
       </div>
       <div>

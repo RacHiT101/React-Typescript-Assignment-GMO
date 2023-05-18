@@ -96,7 +96,7 @@ const DepartmentList: React.FC<Props> = ({ departments }) => {
               dept.sub_departments.map((subDept) => {
                 const subDepartment = `${dept.department}_${subDept}`;
                 return (
-                  <div key={subDept} className="mx-8">
+                  <div key={subDept} className="ml-14">
                     <Checkbox
                       checked={selectedSubDepartments.includes(subDepartment)}
                       onChange={() =>

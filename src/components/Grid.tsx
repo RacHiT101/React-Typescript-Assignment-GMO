@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { DataGrid, GridColDef, GridPagination } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-
-type Props = {};
 
 interface Post {
   id: number;
@@ -17,7 +15,7 @@ const columns: GridColDef[] = [
   { field: "body", headerName: "Body", width: 400 },
 ];
 
-const Grid = (props: Props) => {
+const Grid = () => {
   const [data, setData] = useState<Post[]>([]);
 
   useEffect(() => {
@@ -36,8 +34,8 @@ const Grid = (props: Props) => {
   }, []);
 
   return (
-    <div className="flex justify-center h-full">
-      <div className="w-3/5 my-10">
+    <div>
+      <div>
         <DataGrid
           rows={data}
           columns={columns}
